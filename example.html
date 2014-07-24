@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Löffelsprache</title>
+</head>
+<body>
+	<textarea name="input" id="input" cols="30" rows="10">Löffelsprache</textarea>
+	<textarea name="output" id="output" cols="30" rows="10">Lölewöffelewelspralewachelewe</textarea>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script>
+	/*Rules
+		e = elewe
+		a = alewa
+		i = ilewi
+		o = olewo
+		u = ulewu
+		ü = ülewü
+		ö = ölewö
+		ä = älewä
+		ie = ilewie
+		au = alewau
+		ei = elewei
+	*/
+	$(function() {
+		//text to Löffelsprache
+		$('#input').keyup(function() { //keyup to support backspace
+			$(this).change();
+		}).change(function() {
+			var word_array = $(this).val().split(" ");
+			for(var i = 0;i<word_array.length;i++) {
+				word_array[i] = word_array[i].replace(/ie/g,"[ilewie]");
+				word_array[i] = word_array[i].replace(/au/g,"[alewau]");
+				word_array[i] = word_array[i].replace(/ei/g,"[elewei]");
+
+				word_array[i] = word_array[i].replace(/e(?!lewei\]|wei\]|wau\]|wie\]|i\]|\])/g,"[elewe]");
+				word_array[i] = word_array[i].replace(/a(?!lewau\]|u\])/g,"[alewa]");
+				word_array[i] = word_array[i].replace(/i(?!lewie\]|e\]|\])/g,"[ilewi]");
+				word_array[i] = word_array[i].replace(/o/g,"[olewo]");
+				word_array[i] = word_array[i].replace(/u(?!\])/g,"[ulewu]");
+				word_array[i] = word_array[i].replace(/ü/g,"[ülewü]");
+				word_array[i] = word_array[i].replace(/ö/g,"[ölewö]");
+				word_array[i] = word_array[i].replace(/ä/g,"[älewä]");
+			}
+			//empty textarea
+			$('#output').val('');
+
+			//output Löffelsprache
+			for(var i = a0;i<word_array.length;i++) {
+				$('#output').val(($('#output').val() === "")?word_array[i].replace(/\[/g,"").replace(/\]/g,""):($('#output').val() + " " + word_array[i].replace(/\[/g,"").replace(/\]/g,"")));
+			}
+		});
+
+		//Löffelsprache to text
+		$('#output').keyup(function() { //keyup to support backspace
+			$(this).change();
+		}).change(function() {
+			var word_array = $(this).val().split(" ");
+			for(var i = 0;i<word_array.length;i++) {
+				word_array[i] = word_array[i].replace(/ilewie/g,"ie");
+				word_array[i] = word_array[i].replace(/alewau/g,"au");
+				word_array[i] = word_array[i].replace(/elewei/g,"ei");
+
+				word_array[i] = word_array[i].replace(/elewe/g,"e");
+				word_array[i] = word_array[i].replace(/alewa/g,"a");
+				word_array[i] = word_array[i].replace(/ilewi/g,"i");
+				word_array[i] = word_array[i].replace(/olewo/g,"o");
+				word_array[i] = word_array[i].replace(/ulewu/g,"u");
+				word_array[i] = word_array[i].replace(/ülewü/g,"ü");
+				word_array[i] = word_array[i].replace(/ölewö/g,"ö");
+				word_array[i] = word_array[i].replace(/älewä/g,"ä");
+			}
+			//empty textarea
+			$('#input').val('');
+
+			//output text
+			for(var i = 0;i<word_array.length;i++) {
+				$('#input').val(($('#input').val() === "")?word_array[i]:($('#input').val() + " " + word_array[i]));
+			}
+		});
+	});
+
+	</script>
+</body>
+</html>
