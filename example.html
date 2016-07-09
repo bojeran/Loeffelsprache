@@ -46,7 +46,7 @@
 			$('#output').val('');
 
 			//output Löffelsprache
-			for(var i = a0;i<word_array.length;i++) {
+			for(var i = 0;i<word_array.length;i++) {
 				$('#output').val(($('#output').val() === "")?word_array[i].replace(/\[/g,"").replace(/\]/g,""):($('#output').val() + " " + word_array[i].replace(/\[/g,"").replace(/\]/g,"")));
 			}
 		});
